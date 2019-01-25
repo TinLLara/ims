@@ -1,0 +1,703 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxsl.ims.impl.dao.FInvoiceBillMapper" >
+  <resultMap id="BaseResultMap" type="com.cxsl.ims.impl.entity.FInvoiceBill" >
+    <id column="inv_bill_id" property="invBillId" jdbcType="BIGINT" />
+    <result column="shop_id" property="shopId" jdbcType="INTEGER" />
+    <result column="shop_name" property="shopName" jdbcType="VARCHAR" />
+    <result column="shipped_time" property="shippedTime" jdbcType="TIMESTAMP" />
+    <result column="settle_time" property="settleTime" jdbcType="TIMESTAMP" />
+    <result column="customer_code" property="customerCode" jdbcType="VARCHAR" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="outer_order_id" property="outerOrderId" jdbcType="VARCHAR" />
+    <result column="packing_id" property="packingId" jdbcType="BIGINT" />
+    <result column="gl_date" property="glDate" jdbcType="TIMESTAMP" />
+    <result column="received_time" property="receivedTime" jdbcType="TIMESTAMP" />
+    <result column="om_num" property="omNum" jdbcType="VARCHAR" />
+    <result column="cmis_finance_num" property="cmisFinanceNum" jdbcType="VARCHAR" />
+    <result column="settlement_amount" property="settlementAmount" jdbcType="DECIMAL" />
+    <result column="sale_details_status" property="saleDetailsStatus" jdbcType="TINYINT" />
+    <result column="invoice_title" property="invoiceTitle" jdbcType="VARCHAR" />
+    <result column="invoice_date" property="invoiceDate" jdbcType="TIMESTAMP" />
+    <result column="invoice_code" property="invoiceCode" jdbcType="VARCHAR" />
+    <result column="invoice_num" property="invoiceNum" jdbcType="VARCHAR" />
+    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+    <result column="item_id" property="itemId" jdbcType="VARCHAR" />
+    <result column="item_price" property="itemPrice" jdbcType="DECIMAL" />
+    <result column="item_cnt" property="itemCnt" jdbcType="SMALLINT" />
+    <result column="exc_tax_amount" property="excTaxAmount" jdbcType="DECIMAL" />
+    <result column="tax_rate" property="taxRate" jdbcType="DECIMAL" />
+    <result column="tax_amount" property="taxAmount" jdbcType="DECIMAL" />
+    <result column="item_amount" property="itemAmount" jdbcType="DECIMAL" />
+    <result column="invoice_type" property="invoiceType" jdbcType="TINYINT" />
+    <result column="invoice_status" property="invoiceStatus" jdbcType="TINYINT" />
+    <result column="is_invoiced" property="isInvoiced" jdbcType="BIT" />
+    <result column="is_confirmed_income" property="isConfirmedIncome" jdbcType="BIT" />
+    <result column="inv_bill_result" property="invBillResult" jdbcType="TINYINT" />
+    <result column="ou_id" property="ouId" jdbcType="BIGINT" />
+    <result column="invoice_reason" property="invoiceReason" jdbcType="TINYINT" />
+    <result column="exception_reason" property="exceptionReason" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    inv_bill_id, shop_id, shop_name, shipped_time, settle_time, customer_code, customer_name, 
+    outer_order_id, packing_id, gl_date, received_time, om_num, cmis_finance_num, settlement_amount, 
+    sale_details_status, invoice_title, invoice_date, invoice_code, invoice_num, item_name, 
+    item_id, item_price, item_cnt, exc_tax_amount, tax_rate, tax_amount, item_amount, 
+    invoice_type, invoice_status, is_invoiced, is_confirmed_income, inv_bill_result, 
+    ou_id, invoice_reason, exception_reason, create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cxsl.ims.impl.entity.FInvoiceBillExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from f_invoice_bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from f_invoice_bill
+    where inv_bill_id = #{invBillId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from f_invoice_bill
+    where inv_bill_id = #{invBillId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cxsl.ims.impl.entity.FInvoiceBillExample" >
+    delete from f_invoice_bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cxsl.ims.impl.entity.FInvoiceBill" >
+    insert into f_invoice_bill (inv_bill_id, shop_id, shop_name, 
+      shipped_time, settle_time, customer_code, 
+      customer_name, outer_order_id, packing_id, 
+      gl_date, received_time, om_num, 
+      cmis_finance_num, settlement_amount, sale_details_status, 
+      invoice_title, invoice_date, invoice_code, 
+      invoice_num, item_name, item_id, 
+      item_price, item_cnt, exc_tax_amount, 
+      tax_rate, tax_amount, item_amount, 
+      invoice_type, invoice_status, is_invoiced, 
+      is_confirmed_income, inv_bill_result, ou_id, 
+      invoice_reason, exception_reason, create_time
+      )
+    values (#{invBillId,jdbcType=BIGINT}, #{shopId,jdbcType=INTEGER}, #{shopName,jdbcType=VARCHAR}, 
+      #{shippedTime,jdbcType=TIMESTAMP}, #{settleTime,jdbcType=TIMESTAMP}, #{customerCode,jdbcType=VARCHAR}, 
+      #{customerName,jdbcType=VARCHAR}, #{outerOrderId,jdbcType=VARCHAR}, #{packingId,jdbcType=BIGINT}, 
+      #{glDate,jdbcType=TIMESTAMP}, #{receivedTime,jdbcType=TIMESTAMP}, #{omNum,jdbcType=VARCHAR}, 
+      #{cmisFinanceNum,jdbcType=VARCHAR}, #{settlementAmount,jdbcType=DECIMAL}, #{saleDetailsStatus,jdbcType=TINYINT}, 
+      #{invoiceTitle,jdbcType=VARCHAR}, #{invoiceDate,jdbcType=TIMESTAMP}, #{invoiceCode,jdbcType=VARCHAR}, 
+      #{invoiceNum,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR}, #{itemId,jdbcType=VARCHAR}, 
+      #{itemPrice,jdbcType=DECIMAL}, #{itemCnt,jdbcType=SMALLINT}, #{excTaxAmount,jdbcType=DECIMAL}, 
+      #{taxRate,jdbcType=DECIMAL}, #{taxAmount,jdbcType=DECIMAL}, #{itemAmount,jdbcType=DECIMAL}, 
+      #{invoiceType,jdbcType=TINYINT}, #{invoiceStatus,jdbcType=TINYINT}, #{isInvoiced,jdbcType=BIT}, 
+      #{isConfirmedIncome,jdbcType=BIT}, #{invBillResult,jdbcType=TINYINT}, #{ouId,jdbcType=BIGINT}, 
+      #{invoiceReason,jdbcType=TINYINT}, #{exceptionReason,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cxsl.ims.impl.entity.FInvoiceBill" >
+    insert into f_invoice_bill
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="invBillId != null" >
+        inv_bill_id,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="shopName != null" >
+        shop_name,
+      </if>
+      <if test="shippedTime != null" >
+        shipped_time,
+      </if>
+      <if test="settleTime != null" >
+        settle_time,
+      </if>
+      <if test="customerCode != null" >
+        customer_code,
+      </if>
+      <if test="customerName != null" >
+        customer_name,
+      </if>
+      <if test="outerOrderId != null" >
+        outer_order_id,
+      </if>
+      <if test="packingId != null" >
+        packing_id,
+      </if>
+      <if test="glDate != null" >
+        gl_date,
+      </if>
+      <if test="receivedTime != null" >
+        received_time,
+      </if>
+      <if test="omNum != null" >
+        om_num,
+      </if>
+      <if test="cmisFinanceNum != null" >
+        cmis_finance_num,
+      </if>
+      <if test="settlementAmount != null" >
+        settlement_amount,
+      </if>
+      <if test="saleDetailsStatus != null" >
+        sale_details_status,
+      </if>
+      <if test="invoiceTitle != null" >
+        invoice_title,
+      </if>
+      <if test="invoiceDate != null" >
+        invoice_date,
+      </if>
+      <if test="invoiceCode != null" >
+        invoice_code,
+      </if>
+      <if test="invoiceNum != null" >
+        invoice_num,
+      </if>
+      <if test="itemName != null" >
+        item_name,
+      </if>
+      <if test="itemId != null" >
+        item_id,
+      </if>
+      <if test="itemPrice != null" >
+        item_price,
+      </if>
+      <if test="itemCnt != null" >
+        item_cnt,
+      </if>
+      <if test="excTaxAmount != null" >
+        exc_tax_amount,
+      </if>
+      <if test="taxRate != null" >
+        tax_rate,
+      </if>
+      <if test="taxAmount != null" >
+        tax_amount,
+      </if>
+      <if test="itemAmount != null" >
+        item_amount,
+      </if>
+      <if test="invoiceType != null" >
+        invoice_type,
+      </if>
+      <if test="invoiceStatus != null" >
+        invoice_status,
+      </if>
+      <if test="isInvoiced != null" >
+        is_invoiced,
+      </if>
+      <if test="isConfirmedIncome != null" >
+        is_confirmed_income,
+      </if>
+      <if test="invBillResult != null" >
+        inv_bill_result,
+      </if>
+      <if test="ouId != null" >
+        ou_id,
+      </if>
+      <if test="invoiceReason != null" >
+        invoice_reason,
+      </if>
+      <if test="exceptionReason != null" >
+        exception_reason,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="invBillId != null" >
+        #{invBillId,jdbcType=BIGINT},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="shopName != null" >
+        #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="shippedTime != null" >
+        #{shippedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="settleTime != null" >
+        #{settleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerCode != null" >
+        #{customerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="outerOrderId != null" >
+        #{outerOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="packingId != null" >
+        #{packingId,jdbcType=BIGINT},
+      </if>
+      <if test="glDate != null" >
+        #{glDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receivedTime != null" >
+        #{receivedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="omNum != null" >
+        #{omNum,jdbcType=VARCHAR},
+      </if>
+      <if test="cmisFinanceNum != null" >
+        #{cmisFinanceNum,jdbcType=VARCHAR},
+      </if>
+      <if test="settlementAmount != null" >
+        #{settlementAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="saleDetailsStatus != null" >
+        #{saleDetailsStatus,jdbcType=TINYINT},
+      </if>
+      <if test="invoiceTitle != null" >
+        #{invoiceTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceDate != null" >
+        #{invoiceDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invoiceCode != null" >
+        #{invoiceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceNum != null" >
+        #{invoiceNum,jdbcType=VARCHAR},
+      </if>
+      <if test="itemName != null" >
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null" >
+        #{itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemPrice != null" >
+        #{itemPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="itemCnt != null" >
+        #{itemCnt,jdbcType=SMALLINT},
+      </if>
+      <if test="excTaxAmount != null" >
+        #{excTaxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="taxRate != null" >
+        #{taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="taxAmount != null" >
+        #{taxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="itemAmount != null" >
+        #{itemAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceType != null" >
+        #{invoiceType,jdbcType=TINYINT},
+      </if>
+      <if test="invoiceStatus != null" >
+        #{invoiceStatus,jdbcType=TINYINT},
+      </if>
+      <if test="isInvoiced != null" >
+        #{isInvoiced,jdbcType=BIT},
+      </if>
+      <if test="isConfirmedIncome != null" >
+        #{isConfirmedIncome,jdbcType=BIT},
+      </if>
+      <if test="invBillResult != null" >
+        #{invBillResult,jdbcType=TINYINT},
+      </if>
+      <if test="ouId != null" >
+        #{ouId,jdbcType=BIGINT},
+      </if>
+      <if test="invoiceReason != null" >
+        #{invoiceReason,jdbcType=TINYINT},
+      </if>
+      <if test="exceptionReason != null" >
+        #{exceptionReason,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cxsl.ims.impl.entity.FInvoiceBillExample" resultType="java.lang.Integer" >
+    select count(*) from f_invoice_bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update f_invoice_bill
+    <set >
+      <if test="record.invBillId != null" >
+        inv_bill_id = #{record.invBillId,jdbcType=BIGINT},
+      </if>
+      <if test="record.shopId != null" >
+        shop_id = #{record.shopId,jdbcType=INTEGER},
+      </if>
+      <if test="record.shopName != null" >
+        shop_name = #{record.shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shippedTime != null" >
+        shipped_time = #{record.shippedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.settleTime != null" >
+        settle_time = #{record.settleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.customerCode != null" >
+        customer_code = #{record.customerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerName != null" >
+        customer_name = #{record.customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outerOrderId != null" >
+        outer_order_id = #{record.outerOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.packingId != null" >
+        packing_id = #{record.packingId,jdbcType=BIGINT},
+      </if>
+      <if test="record.glDate != null" >
+        gl_date = #{record.glDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.receivedTime != null" >
+        received_time = #{record.receivedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.omNum != null" >
+        om_num = #{record.omNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmisFinanceNum != null" >
+        cmis_finance_num = #{record.cmisFinanceNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settlementAmount != null" >
+        settlement_amount = #{record.settlementAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.saleDetailsStatus != null" >
+        sale_details_status = #{record.saleDetailsStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.invoiceTitle != null" >
+        invoice_title = #{record.invoiceTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.invoiceDate != null" >
+        invoice_date = #{record.invoiceDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.invoiceCode != null" >
+        invoice_code = #{record.invoiceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.invoiceNum != null" >
+        invoice_num = #{record.invoiceNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemName != null" >
+        item_name = #{record.itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemId != null" >
+        item_id = #{record.itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemPrice != null" >
+        item_price = #{record.itemPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.itemCnt != null" >
+        item_cnt = #{record.itemCnt,jdbcType=SMALLINT},
+      </if>
+      <if test="record.excTaxAmount != null" >
+        exc_tax_amount = #{record.excTaxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.taxRate != null" >
+        tax_rate = #{record.taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.taxAmount != null" >
+        tax_amount = #{record.taxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.itemAmount != null" >
+        item_amount = #{record.itemAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.invoiceType != null" >
+        invoice_type = #{record.invoiceType,jdbcType=TINYINT},
+      </if>
+      <if test="record.invoiceStatus != null" >
+        invoice_status = #{record.invoiceStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.isInvoiced != null" >
+        is_invoiced = #{record.isInvoiced,jdbcType=BIT},
+      </if>
+      <if test="record.isConfirmedIncome != null" >
+        is_confirmed_income = #{record.isConfirmedIncome,jdbcType=BIT},
+      </if>
+      <if test="record.invBillResult != null" >
+        inv_bill_result = #{record.invBillResult,jdbcType=TINYINT},
+      </if>
+      <if test="record.ouId != null" >
+        ou_id = #{record.ouId,jdbcType=BIGINT},
+      </if>
+      <if test="record.invoiceReason != null" >
+        invoice_reason = #{record.invoiceReason,jdbcType=TINYINT},
+      </if>
+      <if test="record.exceptionReason != null" >
+        exception_reason = #{record.exceptionReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update f_invoice_bill
+    set inv_bill_id = #{record.invBillId,jdbcType=BIGINT},
+      shop_id = #{record.shopId,jdbcType=INTEGER},
+      shop_name = #{record.shopName,jdbcType=VARCHAR},
+      shipped_time = #{record.shippedTime,jdbcType=TIMESTAMP},
+      settle_time = #{record.settleTime,jdbcType=TIMESTAMP},
+      customer_code = #{record.customerCode,jdbcType=VARCHAR},
+      customer_name = #{record.customerName,jdbcType=VARCHAR},
+      outer_order_id = #{record.outerOrderId,jdbcType=VARCHAR},
+      packing_id = #{record.packingId,jdbcType=BIGINT},
+      gl_date = #{record.glDate,jdbcType=TIMESTAMP},
+      received_time = #{record.receivedTime,jdbcType=TIMESTAMP},
+      om_num = #{record.omNum,jdbcType=VARCHAR},
+      cmis_finance_num = #{record.cmisFinanceNum,jdbcType=VARCHAR},
+      settlement_amount = #{record.settlementAmount,jdbcType=DECIMAL},
+      sale_details_status = #{record.saleDetailsStatus,jdbcType=TINYINT},
+      invoice_title = #{record.invoiceTitle,jdbcType=VARCHAR},
+      invoice_date = #{record.invoiceDate,jdbcType=TIMESTAMP},
+      invoice_code = #{record.invoiceCode,jdbcType=VARCHAR},
+      invoice_num = #{record.invoiceNum,jdbcType=VARCHAR},
+      item_name = #{record.itemName,jdbcType=VARCHAR},
+      item_id = #{record.itemId,jdbcType=VARCHAR},
+      item_price = #{record.itemPrice,jdbcType=DECIMAL},
+      item_cnt = #{record.itemCnt,jdbcType=SMALLINT},
+      exc_tax_amount = #{record.excTaxAmount,jdbcType=DECIMAL},
+      tax_rate = #{record.taxRate,jdbcType=DECIMAL},
+      tax_amount = #{record.taxAmount,jdbcType=DECIMAL},
+      item_amount = #{record.itemAmount,jdbcType=DECIMAL},
+      invoice_type = #{record.invoiceType,jdbcType=TINYINT},
+      invoice_status = #{record.invoiceStatus,jdbcType=TINYINT},
+      is_invoiced = #{record.isInvoiced,jdbcType=BIT},
+      is_confirmed_income = #{record.isConfirmedIncome,jdbcType=BIT},
+      inv_bill_result = #{record.invBillResult,jdbcType=TINYINT},
+      ou_id = #{record.ouId,jdbcType=BIGINT},
+      invoice_reason = #{record.invoiceReason,jdbcType=TINYINT},
+      exception_reason = #{record.exceptionReason,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxsl.ims.impl.entity.FInvoiceBill" >
+    update f_invoice_bill
+    <set >
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="shopName != null" >
+        shop_name = #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="shippedTime != null" >
+        shipped_time = #{shippedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="settleTime != null" >
+        settle_time = #{settleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerCode != null" >
+        customer_code = #{customerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="outerOrderId != null" >
+        outer_order_id = #{outerOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="packingId != null" >
+        packing_id = #{packingId,jdbcType=BIGINT},
+      </if>
+      <if test="glDate != null" >
+        gl_date = #{glDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receivedTime != null" >
+        received_time = #{receivedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="omNum != null" >
+        om_num = #{omNum,jdbcType=VARCHAR},
+      </if>
+      <if test="cmisFinanceNum != null" >
+        cmis_finance_num = #{cmisFinanceNum,jdbcType=VARCHAR},
+      </if>
+      <if test="settlementAmount != null" >
+        settlement_amount = #{settlementAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="saleDetailsStatus != null" >
+        sale_details_status = #{saleDetailsStatus,jdbcType=TINYINT},
+      </if>
+      <if test="invoiceTitle != null" >
+        invoice_title = #{invoiceTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceDate != null" >
+        invoice_date = #{invoiceDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invoiceCode != null" >
+        invoice_code = #{invoiceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceNum != null" >
+        invoice_num = #{invoiceNum,jdbcType=VARCHAR},
+      </if>
+      <if test="itemName != null" >
+        item_name = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null" >
+        item_id = #{itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemPrice != null" >
+        item_price = #{itemPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="itemCnt != null" >
+        item_cnt = #{itemCnt,jdbcType=SMALLINT},
+      </if>
+      <if test="excTaxAmount != null" >
+        exc_tax_amount = #{excTaxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="taxRate != null" >
+        tax_rate = #{taxRate,jdbcType=DECIMAL},
+      </if>
+      <if test="taxAmount != null" >
+        tax_amount = #{taxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="itemAmount != null" >
+        item_amount = #{itemAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceType != null" >
+        invoice_type = #{invoiceType,jdbcType=TINYINT},
+      </if>
+      <if test="invoiceStatus != null" >
+        invoice_status = #{invoiceStatus,jdbcType=TINYINT},
+      </if>
+      <if test="isInvoiced != null" >
+        is_invoiced = #{isInvoiced,jdbcType=BIT},
+      </if>
+      <if test="isConfirmedIncome != null" >
+        is_confirmed_income = #{isConfirmedIncome,jdbcType=BIT},
+      </if>
+      <if test="invBillResult != null" >
+        inv_bill_result = #{invBillResult,jdbcType=TINYINT},
+      </if>
+      <if test="ouId != null" >
+        ou_id = #{ouId,jdbcType=BIGINT},
+      </if>
+      <if test="invoiceReason != null" >
+        invoice_reason = #{invoiceReason,jdbcType=TINYINT},
+      </if>
+      <if test="exceptionReason != null" >
+        exception_reason = #{exceptionReason,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where inv_bill_id = #{invBillId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cxsl.ims.impl.entity.FInvoiceBill" >
+    update f_invoice_bill
+    set shop_id = #{shopId,jdbcType=INTEGER},
+      shop_name = #{shopName,jdbcType=VARCHAR},
+      shipped_time = #{shippedTime,jdbcType=TIMESTAMP},
+      settle_time = #{settleTime,jdbcType=TIMESTAMP},
+      customer_code = #{customerCode,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      outer_order_id = #{outerOrderId,jdbcType=VARCHAR},
+      packing_id = #{packingId,jdbcType=BIGINT},
+      gl_date = #{glDate,jdbcType=TIMESTAMP},
+      received_time = #{receivedTime,jdbcType=TIMESTAMP},
+      om_num = #{omNum,jdbcType=VARCHAR},
+      cmis_finance_num = #{cmisFinanceNum,jdbcType=VARCHAR},
+      settlement_amount = #{settlementAmount,jdbcType=DECIMAL},
+      sale_details_status = #{saleDetailsStatus,jdbcType=TINYINT},
+      invoice_title = #{invoiceTitle,jdbcType=VARCHAR},
+      invoice_date = #{invoiceDate,jdbcType=TIMESTAMP},
+      invoice_code = #{invoiceCode,jdbcType=VARCHAR},
+      invoice_num = #{invoiceNum,jdbcType=VARCHAR},
+      item_name = #{itemName,jdbcType=VARCHAR},
+      item_id = #{itemId,jdbcType=VARCHAR},
+      item_price = #{itemPrice,jdbcType=DECIMAL},
+      item_cnt = #{itemCnt,jdbcType=SMALLINT},
+      exc_tax_amount = #{excTaxAmount,jdbcType=DECIMAL},
+      tax_rate = #{taxRate,jdbcType=DECIMAL},
+      tax_amount = #{taxAmount,jdbcType=DECIMAL},
+      item_amount = #{itemAmount,jdbcType=DECIMAL},
+      invoice_type = #{invoiceType,jdbcType=TINYINT},
+      invoice_status = #{invoiceStatus,jdbcType=TINYINT},
+      is_invoiced = #{isInvoiced,jdbcType=BIT},
+      is_confirmed_income = #{isConfirmedIncome,jdbcType=BIT},
+      inv_bill_result = #{invBillResult,jdbcType=TINYINT},
+      ou_id = #{ouId,jdbcType=BIGINT},
+      invoice_reason = #{invoiceReason,jdbcType=TINYINT},
+      exception_reason = #{exceptionReason,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where inv_bill_id = #{invBillId,jdbcType=BIGINT}
+  </update>
+</mapper>

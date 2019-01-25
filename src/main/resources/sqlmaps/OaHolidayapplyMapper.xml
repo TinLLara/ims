@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxsl.ims.impl.dao.OaHolidayapplyMapper" >
+  <resultMap id="BaseResultMap" type="com.cxsl.ims.impl.entity.OaHolidayapply" >
+    <id column="happlyId" property="happlyid" jdbcType="VARCHAR" />
+    <result column="applyPerson" property="applyperson" jdbcType="VARCHAR" />
+    <result column="applyTime" property="applytime" jdbcType="TIMESTAMP" />
+    <result column="belongDept" property="belongdept" jdbcType="VARCHAR" />
+    <result column="staffNum" property="staffnum" jdbcType="VARCHAR" />
+    <result column="staffPhone" property="staffphone" jdbcType="VARCHAR" />
+    <result column="staffTel" property="stafftel" jdbcType="VARCHAR" />
+    <result column="holidayTpye" property="holidaytpye" jdbcType="VARCHAR" />
+    <result column="startTime" property="starttime" jdbcType="DATE" />
+    <result column="endTime" property="endtime" jdbcType="DATE" />
+    <result column="startHour" property="starthour" jdbcType="VARCHAR" />
+    <result column="endHour" property="endhour" jdbcType="VARCHAR" />
+    <result column="days" property="days" jdbcType="VARCHAR" />
+    <result column="reason" property="reason" jdbcType="VARCHAR" />
+    <result column="holidayFile" property="holidayfile" jdbcType="VARCHAR" />
+    <result column="nextnode" property="nextnode" jdbcType="VARCHAR" />
+    <result column="nextnoder" property="nextnoder" jdbcType="VARCHAR" />
+    <result column="sendto" property="sendto" jdbcType="VARCHAR" />
+    <result column="yholiday" property="yholiday" jdbcType="VARCHAR" />
+    <result column="yused" property="yused" jdbcType="VARCHAR" />
+    <result column="iholiday" property="iholiday" jdbcType="VARCHAR" />
+    <result column="iused" property="iused" jdbcType="VARCHAR" />
+    <result column="oused" property="oused" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    happlyId, applyPerson, applyTime, belongDept, staffNum, staffPhone, staffTel, holidayTpye, 
+    startTime, endTime, startHour, endHour, days, reason, holidayFile, nextnode, nextnoder, 
+    sendto, yholiday, yused, iholiday, iused, oused
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cxsl.ims.impl.entity.OaHolidayapplyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from oa_holidayapply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from oa_holidayapply
+    where happlyId = #{happlyid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from oa_holidayapply
+    where happlyId = #{happlyid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cxsl.ims.impl.entity.OaHolidayapplyExample" >
+    delete from oa_holidayapply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cxsl.ims.impl.entity.OaHolidayapply" >
+    insert into oa_holidayapply (happlyId, applyPerson, applyTime, 
+      belongDept, staffNum, staffPhone, 
+      staffTel, holidayTpye, startTime, 
+      endTime, startHour, endHour, 
+      days, reason, holidayFile, 
+      nextnode, nextnoder, sendto, 
+      yholiday, yused, iholiday, 
+      iused, oused)
+    values (#{happlyid,jdbcType=VARCHAR}, #{applyperson,jdbcType=VARCHAR}, #{applytime,jdbcType=TIMESTAMP}, 
+      #{belongdept,jdbcType=VARCHAR}, #{staffnum,jdbcType=VARCHAR}, #{staffphone,jdbcType=VARCHAR}, 
+      #{stafftel,jdbcType=VARCHAR}, #{holidaytpye,jdbcType=VARCHAR}, #{starttime,jdbcType=DATE}, 
+      #{endtime,jdbcType=DATE}, #{starthour,jdbcType=VARCHAR}, #{endhour,jdbcType=VARCHAR}, 
+      #{days,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, #{holidayfile,jdbcType=VARCHAR}, 
+      #{nextnode,jdbcType=VARCHAR}, #{nextnoder,jdbcType=VARCHAR}, #{sendto,jdbcType=VARCHAR}, 
+      #{yholiday,jdbcType=VARCHAR}, #{yused,jdbcType=VARCHAR}, #{iholiday,jdbcType=VARCHAR}, 
+      #{iused,jdbcType=VARCHAR}, #{oused,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cxsl.ims.impl.entity.OaHolidayapply" >
+    insert into oa_holidayapply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="happlyid != null" >
+        happlyId,
+      </if>
+      <if test="applyperson != null" >
+        applyPerson,
+      </if>
+      <if test="applytime != null" >
+        applyTime,
+      </if>
+      <if test="belongdept != null" >
+        belongDept,
+      </if>
+      <if test="staffnum != null" >
+        staffNum,
+      </if>
+      <if test="staffphone != null" >
+        staffPhone,
+      </if>
+      <if test="stafftel != null" >
+        staffTel,
+      </if>
+      <if test="holidaytpye != null" >
+        holidayTpye,
+      </if>
+      <if test="starttime != null" >
+        startTime,
+      </if>
+      <if test="endtime != null" >
+        endTime,
+      </if>
+      <if test="starthour != null" >
+        startHour,
+      </if>
+      <if test="endhour != null" >
+        endHour,
+      </if>
+      <if test="days != null" >
+        days,
+      </if>
+      <if test="reason != null" >
+        reason,
+      </if>
+      <if test="holidayfile != null" >
+        holidayFile,
+      </if>
+      <if test="nextnode != null" >
+        nextnode,
+      </if>
+      <if test="nextnoder != null" >
+        nextnoder,
+      </if>
+      <if test="sendto != null" >
+        sendto,
+      </if>
+      <if test="yholiday != null" >
+        yholiday,
+      </if>
+      <if test="yused != null" >
+        yused,
+      </if>
+      <if test="iholiday != null" >
+        iholiday,
+      </if>
+      <if test="iused != null" >
+        iused,
+      </if>
+      <if test="oused != null" >
+        oused,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="happlyid != null" >
+        #{happlyid,jdbcType=VARCHAR},
+      </if>
+      <if test="applyperson != null" >
+        #{applyperson,jdbcType=VARCHAR},
+      </if>
+      <if test="applytime != null" >
+        #{applytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="belongdept != null" >
+        #{belongdept,jdbcType=VARCHAR},
+      </if>
+      <if test="staffnum != null" >
+        #{staffnum,jdbcType=VARCHAR},
+      </if>
+      <if test="staffphone != null" >
+        #{staffphone,jdbcType=VARCHAR},
+      </if>
+      <if test="stafftel != null" >
+        #{stafftel,jdbcType=VARCHAR},
+      </if>
+      <if test="holidaytpye != null" >
+        #{holidaytpye,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=DATE},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=DATE},
+      </if>
+      <if test="starthour != null" >
+        #{starthour,jdbcType=VARCHAR},
+      </if>
+      <if test="endhour != null" >
+        #{endhour,jdbcType=VARCHAR},
+      </if>
+      <if test="days != null" >
+        #{days,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="holidayfile != null" >
+        #{holidayfile,jdbcType=VARCHAR},
+      </if>
+      <if test="nextnode != null" >
+        #{nextnode,jdbcType=VARCHAR},
+      </if>
+      <if test="nextnoder != null" >
+        #{nextnoder,jdbcType=VARCHAR},
+      </if>
+      <if test="sendto != null" >
+        #{sendto,jdbcType=VARCHAR},
+      </if>
+      <if test="yholiday != null" >
+        #{yholiday,jdbcType=VARCHAR},
+      </if>
+      <if test="yused != null" >
+        #{yused,jdbcType=VARCHAR},
+      </if>
+      <if test="iholiday != null" >
+        #{iholiday,jdbcType=VARCHAR},
+      </if>
+      <if test="iused != null" >
+        #{iused,jdbcType=VARCHAR},
+      </if>
+      <if test="oused != null" >
+        #{oused,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cxsl.ims.impl.entity.OaHolidayapplyExample" resultType="java.lang.Integer" >
+    select count(*) from oa_holidayapply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update oa_holidayapply
+    <set >
+      <if test="record.happlyid != null" >
+        happlyId = #{record.happlyid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyperson != null" >
+        applyPerson = #{record.applyperson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applytime != null" >
+        applyTime = #{record.applytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.belongdept != null" >
+        belongDept = #{record.belongdept,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffnum != null" >
+        staffNum = #{record.staffnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.staffphone != null" >
+        staffPhone = #{record.staffphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stafftel != null" >
+        staffTel = #{record.stafftel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.holidaytpye != null" >
+        holidayTpye = #{record.holidaytpye,jdbcType=VARCHAR},
+      </if>
+      <if test="record.starttime != null" >
+        startTime = #{record.starttime,jdbcType=DATE},
+      </if>
+      <if test="record.endtime != null" >
+        endTime = #{record.endtime,jdbcType=DATE},
+      </if>
+      <if test="record.starthour != null" >
+        startHour = #{record.starthour,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endhour != null" >
+        endHour = #{record.endhour,jdbcType=VARCHAR},
+      </if>
+      <if test="record.days != null" >
+        days = #{record.days,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reason != null" >
+        reason = #{record.reason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.holidayfile != null" >
+        holidayFile = #{record.holidayfile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nextnode != null" >
+        nextnode = #{record.nextnode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nextnoder != null" >
+        nextnoder = #{record.nextnoder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendto != null" >
+        sendto = #{record.sendto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yholiday != null" >
+        yholiday = #{record.yholiday,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yused != null" >
+        yused = #{record.yused,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iholiday != null" >
+        iholiday = #{record.iholiday,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iused != null" >
+        iused = #{record.iused,jdbcType=VARCHAR},
+      </if>
+      <if test="record.oused != null" >
+        oused = #{record.oused,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update oa_holidayapply
+    set happlyId = #{record.happlyid,jdbcType=VARCHAR},
+      applyPerson = #{record.applyperson,jdbcType=VARCHAR},
+      applyTime = #{record.applytime,jdbcType=TIMESTAMP},
+      belongDept = #{record.belongdept,jdbcType=VARCHAR},
+      staffNum = #{record.staffnum,jdbcType=VARCHAR},
+      staffPhone = #{record.staffphone,jdbcType=VARCHAR},
+      staffTel = #{record.stafftel,jdbcType=VARCHAR},
+      holidayTpye = #{record.holidaytpye,jdbcType=VARCHAR},
+      startTime = #{record.starttime,jdbcType=DATE},
+      endTime = #{record.endtime,jdbcType=DATE},
+      startHour = #{record.starthour,jdbcType=VARCHAR},
+      endHour = #{record.endhour,jdbcType=VARCHAR},
+      days = #{record.days,jdbcType=VARCHAR},
+      reason = #{record.reason,jdbcType=VARCHAR},
+      holidayFile = #{record.holidayfile,jdbcType=VARCHAR},
+      nextnode = #{record.nextnode,jdbcType=VARCHAR},
+      nextnoder = #{record.nextnoder,jdbcType=VARCHAR},
+      sendto = #{record.sendto,jdbcType=VARCHAR},
+      yholiday = #{record.yholiday,jdbcType=VARCHAR},
+      yused = #{record.yused,jdbcType=VARCHAR},
+      iholiday = #{record.iholiday,jdbcType=VARCHAR},
+      iused = #{record.iused,jdbcType=VARCHAR},
+      oused = #{record.oused,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxsl.ims.impl.entity.OaHolidayapply" >
+    update oa_holidayapply
+    <set >
+      <if test="applyperson != null" >
+        applyPerson = #{applyperson,jdbcType=VARCHAR},
+      </if>
+      <if test="applytime != null" >
+        applyTime = #{applytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="belongdept != null" >
+        belongDept = #{belongdept,jdbcType=VARCHAR},
+      </if>
+      <if test="staffnum != null" >
+        staffNum = #{staffnum,jdbcType=VARCHAR},
+      </if>
+      <if test="staffphone != null" >
+        staffPhone = #{staffphone,jdbcType=VARCHAR},
+      </if>
+      <if test="stafftel != null" >
+        staffTel = #{stafftel,jdbcType=VARCHAR},
+      </if>
+      <if test="holidaytpye != null" >
+        holidayTpye = #{holidaytpye,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        startTime = #{starttime,jdbcType=DATE},
+      </if>
+      <if test="endtime != null" >
+        endTime = #{endtime,jdbcType=DATE},
+      </if>
+      <if test="starthour != null" >
+        startHour = #{starthour,jdbcType=VARCHAR},
+      </if>
+      <if test="endhour != null" >
+        endHour = #{endhour,jdbcType=VARCHAR},
+      </if>
+      <if test="days != null" >
+        days = #{days,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null" >
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="holidayfile != null" >
+        holidayFile = #{holidayfile,jdbcType=VARCHAR},
+      </if>
+      <if test="nextnode != null" >
+        nextnode = #{nextnode,jdbcType=VARCHAR},
+      </if>
+      <if test="nextnoder != null" >
+        nextnoder = #{nextnoder,jdbcType=VARCHAR},
+      </if>
+      <if test="sendto != null" >
+        sendto = #{sendto,jdbcType=VARCHAR},
+      </if>
+      <if test="yholiday != null" >
+        yholiday = #{yholiday,jdbcType=VARCHAR},
+      </if>
+      <if test="yused != null" >
+        yused = #{yused,jdbcType=VARCHAR},
+      </if>
+      <if test="iholiday != null" >
+        iholiday = #{iholiday,jdbcType=VARCHAR},
+      </if>
+      <if test="iused != null" >
+        iused = #{iused,jdbcType=VARCHAR},
+      </if>
+      <if test="oused != null" >
+        oused = #{oused,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where happlyId = #{happlyid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cxsl.ims.impl.entity.OaHolidayapply" >
+    update oa_holidayapply
+    set applyPerson = #{applyperson,jdbcType=VARCHAR},
+      applyTime = #{applytime,jdbcType=TIMESTAMP},
+      belongDept = #{belongdept,jdbcType=VARCHAR},
+      staffNum = #{staffnum,jdbcType=VARCHAR},
+      staffPhone = #{staffphone,jdbcType=VARCHAR},
+      staffTel = #{stafftel,jdbcType=VARCHAR},
+      holidayTpye = #{holidaytpye,jdbcType=VARCHAR},
+      startTime = #{starttime,jdbcType=DATE},
+      endTime = #{endtime,jdbcType=DATE},
+      startHour = #{starthour,jdbcType=VARCHAR},
+      endHour = #{endhour,jdbcType=VARCHAR},
+      days = #{days,jdbcType=VARCHAR},
+      reason = #{reason,jdbcType=VARCHAR},
+      holidayFile = #{holidayfile,jdbcType=VARCHAR},
+      nextnode = #{nextnode,jdbcType=VARCHAR},
+      nextnoder = #{nextnoder,jdbcType=VARCHAR},
+      sendto = #{sendto,jdbcType=VARCHAR},
+      yholiday = #{yholiday,jdbcType=VARCHAR},
+      yused = #{yused,jdbcType=VARCHAR},
+      iholiday = #{iholiday,jdbcType=VARCHAR},
+      iused = #{iused,jdbcType=VARCHAR},
+      oused = #{oused,jdbcType=VARCHAR}
+    where happlyId = #{happlyid,jdbcType=VARCHAR}
+  </update>
+</mapper>
