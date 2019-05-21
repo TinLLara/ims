@@ -26,7 +26,7 @@
         <sqlMapGenerator targetPackage="sqlmaps" targetProject="src/main/resources" />
         <javaClientGenerator targetPackage="com.cxsl.ims.impl.dao" targetProject="src/main/java" type="XMLMAPPER" />
 
-        <!--<table schema="ins_tc_prd" tableName="f_invoice_bill" />-->
+
         <table schema="oa" tableName="oa_holidayapply" />
 
     </context>
