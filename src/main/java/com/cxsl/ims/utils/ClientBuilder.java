@@ -24,14 +24,14 @@ public class ClientBuilder {
         if (client == null) {
         	Settings settings = ImmutableSettings.settingsBuilder()  
                     .put("cluster.name", "elasticsearch")
-                    .put("shield.user","t_admin:v0SPxQzqN^fKV4e&")
+                    .put("shield.user","tt_admin:v0SPxQzqN^fKV4e&X")
                     .build(); 
         	 client = new TransportClient(settings)
-        	 .addTransportAddress(new InetSocketTransportAddress("192.168.13.131", 9300));
-             //.addTransportAddress(new InetSocketTransportAddress("10.251.232.163", 9300))
-             //.addTransportAddress(new InetSocketTransportAddress("10.117.59.86", 9300));
+        	 .addTransportAddress(new InetSocketTransportAddress("192.168.13.138", 9300));
+             //.addTransportAddress(new InetSocketTransportAddress("127.0.0.1", 9300))
+             //.addTransportAddress(new InetSocketTransportAddress("127.0.0.2", 9300));
         	 
-             String token = UsernamePasswordToken.basicAuthHeaderValue("t_admin", new SecuredString("v0SPxQzqN^fKV4e&".toCharArray()));
+             String token = UsernamePasswordToken.basicAuthHeaderValue("tt_admin", new SecuredString("v0SPxQzqN^fKV4e&X".toCharArray()));
 			 client.prepareSearch().putHeader("Authorization", token);
         }
         return client;
